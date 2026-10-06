@@ -1,6 +1,5 @@
 import type { Emoji } from "./emoji";
 
-export const QUESTION_COUNT = 10;
 export const CHOICE_COUNT = 4;
 
 export type Question = {
@@ -18,14 +17,17 @@ function shuffle<T>(items: readonly T[]): T[] {
   return a;
 }
 
-// 正解は重複しないよう1問ごとに別の絵文字にし、不正解の選択肢は正解以外から無作為に選ぶ
-export function createQuestions(emojis: readonly Emoji[]): Question[] {
-  const answers = shuffle(emojis).slice(0, QUESTION_COUNT);
-  return answers.map((answer) => {
+// 正解は一巡するまで重複しないよう1問ごとに別の絵文字にし（全件を出し切ったら並べ直す）、
+// 不正解の選択肢は正解以外から無作為に選ぶ。終わりのないゲーム用に1問ずつ返す
+export function createQuestionSource(emojis: readonly Emoji[]): () => Question {
+  let answers: Emoji[] = [];
+  return () => {
+    if (answers.length === 0) answers = shuffle(emojis);
+    const answer = answers.pop()!;
     const wrong = shuffle(emojis.filter((e) => e.unicode !== answer.unicode)).slice(
       0,
       CHOICE_COUNT - 1,
     );
     return { answer, choices: shuffle([answer, ...wrong]) };
-  });
+  };
 }
