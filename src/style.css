@@ -143,6 +143,8 @@ button {
 
 .quit {
   margin-right: auto;
+  min-width: 44px;
+  min-height: 44px;
   padding: 6px 14px;
   border: 0;
   border-radius: 999px;
@@ -338,6 +340,70 @@ button {
   height: 16px;
   border-radius: 2px;
   animation: confetti-fall linear forwards;
+}
+
+/* 画面には出さず、支援技術にだけ伝える */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 中断の確認ダイアログ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(59, 42, 90, 0.55);
+}
+
+.dialog {
+  width: 100%;
+  max-width: 340px;
+  padding: 24px 20px 20px;
+  border-radius: 24px;
+  background: var(--card);
+  box-shadow: 0 8px 0 rgba(59, 42, 90, 0.2);
+  text-align: center;
+}
+
+.dialog-title {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+}
+
+.dialog-text {
+  margin: 0 0 20px;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dialog-btn {
+  min-height: 48px;
+  padding: 10px 16px;
+  border: 2px solid var(--fg);
+  border-radius: 999px;
+  background: var(--card);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.dialog-btn.primary-dialog {
+  border-color: var(--accent-dark);
+  background: var(--accent);
+  color: #fff;
 }
 
 /* アニメーション */
