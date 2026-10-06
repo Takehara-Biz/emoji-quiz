@@ -1,0 +1,418 @@
+:root {
+  --fg: #3b2a5a;
+  --accent: #ff5fa2;
+  --accent-dark: #d63d83;
+  --card: #ffffff;
+  --ok: #37c871;
+  --ok-dark: #229653;
+  --ng: #ff5a5f;
+  --ng-dark: #d23c41;
+  --pop-font: ui-rounded, "Hiragino Maru Gothic ProN", "Arial Rounded MT Bold",
+    "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  color: var(--fg);
+  font-family: var(--pop-font);
+  background: linear-gradient(160deg, #ffe3f1 0%, #ffe9c7 45%, #d9f3ff 100%);
+  background-attachment: fixed;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: max(16px, env(safe-area-inset-top)) 16px
+    max(20px, env(safe-area-inset-bottom));
+  animation: slide-in 0.35s ease-out;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ふわふわ浮かぶ背景の絵文字 */
+.floaters {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.floater {
+  position: absolute;
+  bottom: -80px;
+  opacity: 0.4;
+  animation: floatup linear infinite;
+}
+
+/* Start / Result */
+.start,
+.result {
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 3rem;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 0 rgba(255, 255, 255, 0.8);
+}
+
+.title span {
+  display: inline-block;
+  animation: bounce 1.6s ease-in-out infinite;
+}
+
+.title span:nth-child(5n + 1) {
+  color: #ff5fa2;
+}
+.title span:nth-child(5n + 2) {
+  color: #ff9f1c;
+}
+.title span:nth-child(5n + 3) {
+  color: #2ec4b6;
+}
+.title span:nth-child(5n + 4) {
+  color: #4d96ff;
+}
+.title span:nth-child(5n + 5) {
+  color: #9b5de5;
+}
+
+.hero {
+  font-size: 5rem;
+  line-height: 1;
+  animation: wobble 2.4s ease-in-out infinite;
+}
+
+.primary {
+  min-width: 220px;
+  padding: 16px 36px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 7px 0 var(--accent-dark);
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.primary:active {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 var(--accent-dark);
+  animation: none;
+}
+
+/* Quiz */
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-weight: 800;
+}
+
+.progress-label,
+.score {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--card);
+  box-shadow: 0 3px 0 rgba(59, 42, 90, 0.15);
+  font-size: 1rem;
+}
+
+.score.bump {
+  animation: pop 0.5s ease-out;
+}
+
+.progress-bar {
+  margin-top: 12px;
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 2px 0 rgba(59, 42, 90, 0.12);
+  overflow: hidden;
+}
+
+.progress-bar > div {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff5fa2, #ff9f1c, #ffd43b);
+  transition: width 0.4s ease-out;
+}
+
+/* 問題文は画面上部、ボタンは画面下部に置く */
+.prompt-card {
+  position: relative;
+  margin-top: 22px;
+  padding: 20px 16px;
+  border-radius: 24px;
+  background: var(--card);
+  box-shadow: 0 6px 0 rgba(59, 42, 90, 0.15);
+  text-align: center;
+}
+
+.prompt-card::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  width: 24px;
+  height: 24px;
+  background: var(--card);
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 0 0 6px 0;
+}
+
+.prompt-label {
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.prompt {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.feedback {
+  margin: 28px 0 0;
+  min-height: 2.2rem;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.feedback.ok {
+  color: var(--ok-dark);
+  animation: pop 0.5s ease-out;
+}
+
+.feedback.ng {
+  color: var(--ng-dark);
+  animation: pop 0.5s ease-out;
+}
+
+.choices {
+  margin-top: auto;
+  padding-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.choice {
+  --tile: #ffd1e3;
+  --tile-dark: #f08db6;
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 28px;
+  background: var(--tile);
+  box-shadow: 0 8px 0 var(--tile-dark);
+  font-size: 4.4rem;
+  line-height: 1;
+  transition: transform 0.08s;
+}
+
+.choice:nth-child(2) {
+  --tile: #cfe8ff;
+  --tile-dark: #7ab6ee;
+}
+.choice:nth-child(3) {
+  --tile: #fff0a8;
+  --tile-dark: #e6c93d;
+}
+.choice:nth-child(4) {
+  --tile: #c9f5d6;
+  --tile-dark: #6fd08c;
+}
+
+.choice:active:not(:disabled) {
+  transform: translateY(6px);
+  box-shadow: 0 2px 0 var(--tile-dark);
+}
+
+.choice:disabled {
+  cursor: default;
+}
+
+.choice:disabled:not(.correct):not(.wrong) {
+  opacity: 0.5;
+}
+
+.choice.correct {
+  background: var(--ok);
+  box-shadow: 0 8px 0 var(--ok-dark);
+  animation: pop 0.5s ease-out;
+}
+
+.choice.wrong {
+  background: var(--ng);
+  box-shadow: 0 8px 0 var(--ng-dark);
+  animation: shake 0.45s ease-in-out;
+}
+
+/* Result */
+.trophy {
+  font-size: 6rem;
+  line-height: 1;
+  animation: pop 0.7s ease-out, wobble 2.4s 0.7s ease-in-out infinite;
+}
+
+.final-score {
+  margin: 0;
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--accent);
+  text-shadow: 0 4px 0 rgba(255, 255, 255, 0.9);
+}
+
+.message {
+  margin: -16px 0 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti i {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 16px;
+  border-radius: 2px;
+  animation: confetti-fall linear forwards;
+}
+
+/* アニメーション */
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(8deg) scale(1.06);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-9px);
+  }
+  40%,
+  80% {
+    transform: translateX(9px);
+  }
+}
+
+@keyframes floatup {
+  from {
+    transform: translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateY(-120vh) rotate(360deg);
+  }
+}
+
+@keyframes confetti-fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

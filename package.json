@@ -1,0 +1,27 @@
+{
+  "name": "emoji-quiz",
+  "version": "1.0.0",
+  "description": "Web app to study English with Emoji.",
+  "homepage": "https://github.com/Takehara-Biz/emoji-quiz#readme",
+  "bugs": {
+    "url": "https://github.com/Takehara-Biz/emoji-quiz/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Takehara-Biz/emoji-quiz.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.3"
+  }
+}
