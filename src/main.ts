@@ -87,6 +87,14 @@ function startQuiz(): void {
   const questions = createQuestions(emojis);
   let index = 0;
   let score = 0;
+  let nextTimer: number | undefined;
+
+  const quit = el("button", "quit", "🏠");
+  quit.addEventListener("click", () => {
+    if (!confirm("タイトルに戻りますか？\n（進行中のクイズは破棄されます）")) return;
+    clearTimeout(nextTimer);
+    showStart();
+  });
 
   const showQuestion = (): void => {
     const q: Question = questions[index];
@@ -94,7 +102,7 @@ function startQuiz(): void {
     const progressLabel = el("div", "progress-label", `Q ${index + 1} / ${QUESTION_COUNT}`);
     const scoreEl = el("div", "score", `Score: ${score}`);
     const status = el("div", "status");
-    status.append(progressLabel, scoreEl);
+    status.append(quit, progressLabel, scoreEl);
 
     const bar = el("div", "progress-bar");
     const barFill = el("div");
@@ -131,7 +139,7 @@ function startQuiz(): void {
           playWrong();
         }
         barFill.style.width = `${((index + 1) / QUESTION_COUNT) * 100}%`;
-        setTimeout(() => {
+        nextTimer = window.setTimeout(() => {
           index++;
           if (index < QUESTION_COUNT) showQuestion();
           else showResult(score);

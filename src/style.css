@@ -141,6 +141,22 @@ button {
   font-weight: 800;
 }
 
+.quit {
+  margin-right: auto;
+  padding: 6px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--card);
+  box-shadow: 0 3px 0 rgba(59, 42, 90, 0.15);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.quit:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(59, 42, 90, 0.15);
+}
+
 .progress-label,
 .score {
   padding: 6px 14px;
