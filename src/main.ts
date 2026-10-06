@@ -344,10 +344,10 @@ function startQuiz(): void {
 }
 
 function resultView(score: number): { trophy: string; message: string } {
-  if (score >= 30) return { trophy: "🏆", message: "Perfect! Amazing!" };
-  if (score >= 20) return { trophy: "🥇", message: "Incredible!" };
-  if (score >= 10) return { trophy: "🎉", message: "Great job!" };
-  if (score >= 5) return { trophy: "👍", message: "Good! Try again!" };
+  if (score >= 15) return { trophy: "🏆", message: "Perfect! Amazing!" };
+  if (score >= 10) return { trophy: "🥇", message: "Incredible!" };
+  if (score >= 6) return { trophy: "🎉", message: "Great job!" };
+  if (score >= 3) return { trophy: "👍", message: "Good! Try again!" };
   return { trophy: "💪", message: "Keep going!" };
 }
 
