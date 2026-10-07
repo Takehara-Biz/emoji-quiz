@@ -1,6 +1,6 @@
 # emoji-quiz
 
-絵文字を使った英語クイズの Web アプリ（HTML/CSS/TypeScript + Vite の静的サイト）。仕様は [README.md](README.md) を参照。
+絵文字を使った英語クイズの Web アプリ（React + TypeScript + Vite の静的サイト（Next.js は使わない））。仕様は [README.md](README.md) を参照。
 
 ## コマンド
 
@@ -15,7 +15,7 @@ npm run build    # tsc --noEmit && vite build（変更後は必ず通す）
 
 ### アクセシビリティ（WCAG 2.x レベル A を満たす）
 
-UI（`index.html` / `src/main.ts` / `src/style.css`）を変更するときは、次を満たす。
+UI（`index.html` / `src/App.tsx` / `src/components/` / `src/style.css`）を変更するときは、次を満たす。
 
 - 画像・絵文字ボタン・アイコンのみのボタンには、アクセシブルな名前（`aria-label` 等）を付ける。装飾は `aria-hidden="true"`。
 - ただしクイズの答えが分かる名前を付けない（選択肢の名前に絵文字の name を入れると、出題文と同じになり答えが漏れる）。
@@ -30,7 +30,7 @@ UI（`index.html` / `src/main.ts` / `src/style.css`）を変更するときは�
 ### 実装方針
 
 - 縦向きスマホのブラウザ前提。それ以外の UI は考慮不要。
-- DOM は `innerHTML` ではなく `el()` ヘルパーや `textContent` で組む。
+- UI は React のコンポーネントで組む。`dangerouslySetInnerHTML` / `innerHTML` は使わない。
 - 効果音は Web Audio API で合成する（音声ファイルは追加しない）。`AudioContext` はユーザー操作内で初期化する。
 - `vite.config.ts` の `base: "./"` を維持し、絶対パスを直書きしない（GitHub Pages のサブパスで動かすため）。
 - 出題データは `emoji-v18.csv`。`emoji-v18-master.csv` は絞り込み前の原本なので、出題には使わない。

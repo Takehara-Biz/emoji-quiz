@@ -24,7 +24,7 @@
 
 ## 技術仕様
 
-- HTML/CSS/TypeScriptを使用
+- React + TypeScript + CSSを使用（Next.jsは使わない）
 - 静的Webサイトで起動する
 
 ## 確認事項（Q&A）
@@ -35,7 +35,7 @@
 |---|---|---|
 | 1 | 出題する絵文字の範囲 | 「emoji-v18.csv」の全件。現在 1,581 件（確認済み）。なお、絞り込み前の全 1,923 件は「emoji-v18-master.csv」に残してある |
 | 2 | 効果音の用意の仕方 | Web Audio API で合成する（音声ファイルは使わない） |
-| 3 | TypeScript のビルド方法 | Vite |
+| 3 | TypeScript のビルド方法 | Vite（@vitejs/plugin-react） |
 | 4 | 不正解の選択肢の選び方 | ランダム（出題範囲から、正解以外を無作為に 3 つ） |
 
 ### 仕様で決められていなかったため、仮に決めた点

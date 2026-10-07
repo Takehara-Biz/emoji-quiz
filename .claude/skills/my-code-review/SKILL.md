@@ -33,12 +33,12 @@ description: emoji-quiz プロジェクト専用のコードレビュー。READM
 
 ### 3. TypeScript
 - `strict` 前提。`any`、不要な `as`、`!`（non-null assertion）の濫用が無いか。`querySelector` 結果の null 扱いは妥当か。
-- `quiz.ts` は純粋ロジックとして DOM に依存させない。UI の責務は `main.ts`、音は `sound.ts` に閉じる。
+- `quiz.ts` は純粋ロジックとして DOM に依存させない。UI の責務は `src/App.tsx` と `src/components/`、音は `sound.ts` に閉じる。
 - 乱数（`Math.random`）の使い方。シャッフルは Fisher-Yates、`sort(() => Math.random() - 0.5)` は不可。
 - 外部依存を安易に増やしていないか（devDependencies は typescript / vite のみの小さな構成）。
 
-### 4. DOM / UI（main.ts）
-- ユーザー由来でない固定データでも、HTML は `innerHTML` ではなく `textContent` / `el()` ヘルパーで組む（既存方針）。`innerHTML` が増えていないか。
+### 4. DOM / UI（React コンポーネント）
+- ユーザー由来でない固定データでも、UI は React のコンポーネントで組む（既存方針）。`dangerouslySetInnerHTML` / `innerHTML` が増えていないか。
 - 画面遷移で古い要素・イベントリスナー・`setTimeout` が残らない。
 - 装飾要素（浮遊絵文字・紙吹雪）は `aria-hidden="true"`。ボタンに適切なラベル（絵文字ボタンは `aria-label` 等）があるか。
 - 確認ダイアログのフォーカス、Escape/背景タップの扱いが一貫しているか。
